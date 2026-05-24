@@ -4,10 +4,10 @@ import { Router } from '@angular/router';
 
 @Component({
   imports: [CommonModule],
-  selector: 'feature-auth',
-  templateUrl: './auth.component.html',
+  selector: 'feature-sign-in',
+  templateUrl: './sign-in.component.html',
 })
-export class AuthComponent {
+export class SignInComponent {
   constructor(public router: Router) {}
 
 }
