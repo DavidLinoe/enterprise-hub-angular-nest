@@ -1,9 +1,11 @@
-import { Inject, Injectable } from '@angular/core';
-import { AuthApi } from '../apis/auth.api';
-
+import { inject, Injectable } from '@angular/core';
+import { Store } from '@ngrx/store';
 @Injectable()
 export class AuthFacade {
-  constructor(@Inject(AuthApi) private authApi: AuthApi) {}
+  private authStore = inject(Store);
+  public todos$ = this.authStore.selectSignal(items);
+  public loading$ = this.authStore.selectSignal(loading);
+  public error$ = this.authStore.selectSignal(error);
 
   signIn(email: string, password: string): void {}
 
