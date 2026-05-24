@@ -39,4 +39,8 @@ export const routes: Routes = [
         (m) => m.MachinesComponent,
       ),
   },
+  {
+    path: '**',
+    redirectTo: 'home',
+  },
 ];
