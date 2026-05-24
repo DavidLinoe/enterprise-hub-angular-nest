@@ -1,0 +1,18 @@
+<table class="w-full border-collapse text-sm">
+  <thead class="bg-primary text-primary-text">
+    <tr>
+      @for (column of columns(); track $index) {
+        <th class="px-4 py-2 text-left font-semibold">{{ column.label }}</th>
+      }
+    </tr>
+  </thead>
+  <tbody>
+    @for (item of items(); track $index) {
+      <tr class="border-b border-gray-200 hover:bg-primary-light/10">
+        @for (column of columns(); track $index) {
+          <td class="px-4 py-2">{{ item[column.name] }}</td>
+        }
+      </tr>
+    }
+  </tbody>
+</table>
