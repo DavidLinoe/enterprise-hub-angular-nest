@@ -1,13 +1,33 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
+import { AuthFacade } from '../../facades/auth.facades';
 
 @Component({
-  imports: [CommonModule],
+  imports: [CommonModule, ReactiveFormsModule],
   selector: 'feature-sign-in',
   templateUrl: './sign-in.component.html',
+  providers: [AuthFacade],
 })
-export class SignInComponent {
-  constructor(public router: Router) {}
+export class SignInComponent implements OnInit {
+  public signInForm!: FormGroup;
 
+  constructor(
+    private formBuilder: FormBuilder,
+    private router: Router,
+    private authFacade: AuthFacade,
+  ) {}
+
+  ngOnInit(): void {
+    this.signInForm = this.formBuilder.group({
+      email: [''],
+      password: [''],
+    });
+  }
+
+  async logIn(): Promise<void> {
+    await this.authFacade.signIn(this.signInForm.value.email, this.signInForm.value.password);
+    this.router.navigate(['/companies']);
+  }
 }
