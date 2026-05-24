@@ -11,7 +11,7 @@
 ></component-totalizer>
 
 <component-table
-  [items]="[{ id: 1, name: 'John Doe', email: 'john.doe@example.com' }]"
+  [items]="usersFacade.users$ | async"
   [columns]="[
     { name: 'id', label: 'ID' },
     { name: 'name', label: 'Name' },
@@ -33,7 +33,7 @@
 ></component-table>
 
 <component-modal
-  [open]="true"
+  [open]="open"
   [buttons]="[
     {
       label: 'Create',
@@ -41,7 +41,8 @@
       callback: (item) => createUser(),
     },
   ]"
+  (close)="open = false"
   [title]="'Test Modal'"
 >
-  teste
+  <feature-users-component-user-modal [form]="userFormGroup"></feature-users-component-user-modal>
 </component-modal>

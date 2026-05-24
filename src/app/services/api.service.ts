@@ -9,8 +9,8 @@ export class ApiService<T> {
 
   private apiUrl = 'http://localhost:3000/'; // todo criar environment
 
-  get(): Observable<T> {
-    return this.httpClient.get<T>(this.apiUrl);
+  get(path: string): Observable<ResponseApi<T>> {
+    return this.httpClient.get<ResponseApi<T>>(this.apiUrl + path);
   }
   post(body: Partial<T>): Observable<ResponseApi<T>> {
     return this.httpClient.post<ResponseApi<T>>(this.apiUrl, body);
