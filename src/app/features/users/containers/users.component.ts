@@ -3,9 +3,10 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { TableComponent } from '../../../components/table/containers/table.component';
 import { TotalizerComponent } from "../../../components/totalizer/containers/totalizer.component";
+import { ModalComponent } from "../../../components/modal/containers/modal.component";
 
 @Component({
-  imports: [CommonModule, TableComponent, TotalizerComponent],
+  imports: [CommonModule, TableComponent, TotalizerComponent, ModalComponent],
   selector: 'feature-users',
   templateUrl: './users.component.html',
 })

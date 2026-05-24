@@ -31,3 +31,17 @@
     },
   ]"
 ></component-table>
+
+<component-modal
+  [open]="true"
+  [buttons]="[
+    {
+      label: 'Create',
+      disabled: false,
+      callback: (item) => createUser(),
+    },
+  ]"
+  [title]="'Test Modal'"
+>
+  teste
+</component-modal>
