@@ -1,3 +1,15 @@
+<component-totalizer
+  [count]="10"
+  [title]="'Users'"
+  [actions]="[
+    {
+      label: 'Create',
+      icon: '+',
+      callback: (item) => createUser(),
+    },
+  ]"
+></component-totalizer>
+
 <component-table
   [items]="[{ id: 1, name: 'John Doe', email: 'john.doe@example.com' }]"
   [columns]="[

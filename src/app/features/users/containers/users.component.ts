@@ -2,9 +2,10 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { TableComponent } from '../../../components/table/containers/table.component';
+import { TotalizerComponent } from "../../../components/totalizer/containers/totalizer.component";
 
 @Component({
-  imports: [CommonModule, TableComponent],
+  imports: [CommonModule, TableComponent, TotalizerComponent],
   selector: 'feature-users',
   templateUrl: './users.component.html',
 })
@@ -13,6 +14,8 @@ export class UsersComponent {
 
   async createUser() {
     // Implement user creation logic here
+        console.log(`User created`);
+
   }
 
   async updateUser(user: string) {
