@@ -1,23 +1,27 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+import { ResponseApi } from '../utils/types/apiResponse';
 
 @Injectable({ providedIn: 'root' })
-export class ApiService {
+export class ApiService<T> {
   constructor(private httpClient: HttpClient) {}
 
-  get() {
-    return this.httpClient.get('');
+  private apiUrl = 'http://localhost:3000/'; // todo criar environment
+
+  get(): Observable<T> {
+    return this.httpClient.get<T>(this.apiUrl);
   }
-  post() {
-    return this.httpClient.post('');
+  post(body: Partial<T>): Observable<ResponseApi<T>> {
+    return this.httpClient.post<ResponseApi<T>>(this.apiUrl, body);
   }
-  put() {
-    return this.httpClient.put('');
+  put(body: Partial<T>): Observable<ResponseApi<T>> {
+    return this.httpClient.put<ResponseApi<T>>(this.apiUrl, body);
   }
-  patch() {
-    return this.httpClient.patch('');
+  patch(body: Partial<T>): Observable<ResponseApi<T>> {
+    return this.httpClient.patch<ResponseApi<T>>(this.apiUrl, body);
   }
-  delete() {
-    return this.httpClient.delete('');
+  delete(param: string): Observable<ResponseApi<T>> {
+    return this.httpClient.delete<ResponseApi<T>>(this.apiUrl, { params: { id: param } });
   }
 }
