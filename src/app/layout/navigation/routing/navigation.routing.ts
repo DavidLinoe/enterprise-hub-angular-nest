@@ -15,5 +15,28 @@ export const routes: Routes = [
         (m) => m.SignUpComponent,
       ),
   },
-  
+  {
+    path: 'home',
+    loadComponent: () =>
+      import('../../../features/home/containers/home.component').then((m) => m.HomeComponent),
+  },
+  {
+    path: 'users',
+    loadComponent: () =>
+      import('../../../features/users/containers/users.component').then((m) => m.UsersComponent),
+  },
+  {
+    path: 'companies',
+    loadComponent: () =>
+      import('../../../features/companies/containers/companies.component').then(
+        (m) => m.CompaniesComponent,
+      ),
+  },
+  {
+    path: 'machines',
+    loadComponent: () =>
+      import('../../../features/machines/containers/machines.component').then(
+        (m) => m.MachinesComponent,
+      ),
+  },
 ];
