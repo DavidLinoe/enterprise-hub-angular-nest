@@ -10,7 +10,23 @@
     @for (item of items(); track $index) {
       <tr class="border-b border-gray-200 hover:bg-primary-light/10">
         @for (column of columns(); track $index) {
-          <td class="px-4 py-2">{{ item[column.name] }}</td>
+          @if (actions().length > 0 && column.name === 'actions') {
+            <td class="px-4 py-2">
+              @for (action of actions(); track $index) {
+                <button
+                  class="mr-2 inline-flex items-center rounded bg-secondary px-3 py-1 text-sm text-white hover:bg-secondary-dark"
+                  (click)="action.callback(item)"
+                >
+                  @if (action.icon) {
+                    <i class="{{ action.icon }} mr-1"></i>
+                  }
+                  {{ action.label }}
+                </button>
+              }
+            </td>
+          } @else {
+            <td class="px-4 py-2">{{ item[column.name] }}</td>
+          }
         }
       </tr>
     }

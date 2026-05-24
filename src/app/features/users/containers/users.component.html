@@ -4,5 +4,18 @@
     { name: 'id', label: 'ID' },
     { name: 'name', label: 'Name' },
     { name: 'email', label: 'Email' },
+    { name: 'actions', label: 'Actions' },
+  ]"
+  [actions]="[
+    {
+      label: 'Edit',
+      icon: 'edit',
+      callback: (item) => updateUser(item),
+    },
+    {
+      label: 'Delete',
+      icon: 'delete',
+      callback: (item) => deleteUser(item),
+    },
   ]"
 ></component-table>

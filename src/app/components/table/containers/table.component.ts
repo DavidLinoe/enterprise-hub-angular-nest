@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, input } from '@angular/core';
 import { Router } from '@angular/router';
-import { TableColumn } from '../models/table.model';
+import { TableAction, TableColumn } from '../models/table.model';
 
 @Component({
   imports: [CommonModule],
@@ -11,6 +11,7 @@ import { TableColumn } from '../models/table.model';
 export class TableComponent {
   public items = input<any>([]);
   public columns = input<TableColumn[]>([]);
+  public actions = input<TableAction[]>([]);
 
   constructor(public router: Router) {}
 }
