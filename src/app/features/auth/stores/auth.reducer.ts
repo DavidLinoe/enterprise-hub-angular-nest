@@ -1,8 +1,9 @@
 import { createReducer, on } from '@ngrx/store';
 import { Auth } from '../models/auth.model';
 import { ResponseApi } from '../../../utils/types/apiResponse';
+import { loadTodos, loadTodosError, loadTodosSuccess, toggleTodoComplete } from './auth.actions';
 
-const initialState: ResponseApi<Auth> = {
+const initialState: ResponseApi<Partial<Auth>> = {
   data: { email: '', password: '' },
   statusCode: 0,
   message: '',
@@ -22,7 +23,7 @@ export const reducer = createReducer(
 
   on(loadTodosSuccess, (state, { todos }) => ({
     ...state,
-    todos,
+    ...todos,
     loading: false,
   })),
 
@@ -34,8 +35,5 @@ export const reducer = createReducer(
 
   on(toggleTodoComplete, (state, { id }) => ({
     ...state,
-    todos: state.todos.map((todo) =>
-      todo.id === id ? { ...todo, completed: !todo.completed } : todo,
-    ),
   })),
 );
