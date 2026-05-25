@@ -12,7 +12,7 @@ export class UsersFacade {
   getAllUsers(): void {
     this.usersApi.getAllUsers().subscribe((response) => {
       if (response.data) {
-        this.users$.next(response.data as unknown as User[]);
+        this.users$.next(response.data);
       }
     });
   }

@@ -4,24 +4,24 @@ import { Observable } from 'rxjs';
 import { ResponseApi } from '../utils/types/apiResponse';
 
 @Injectable({ providedIn: 'root' })
-export class ApiService<T> {
+export class ApiService {
   constructor(private httpClient: HttpClient) {}
 
   private apiUrl = 'http://localhost:3000/'; // todo criar environment
 
-  get(path: string): Observable<ResponseApi<T>> {
+  get<T>(path: string): Observable<ResponseApi<T>> {
     return this.httpClient.get<ResponseApi<T>>(this.apiUrl + path);
   }
-  post(path: string, body: Partial<T>): Observable<ResponseApi<T>> {
+  post<T>(path: string, body: Partial<T>): Observable<ResponseApi<T>> {
     return this.httpClient.post<ResponseApi<T>>(this.apiUrl + path, body);
   }
-  put(path: string, body: Partial<T>): Observable<ResponseApi<T>> {
+  put<T>(path: string, body: Partial<T>): Observable<ResponseApi<T>> {
     return this.httpClient.put<ResponseApi<T>>(this.apiUrl + path, body);
   }
-  patch(path: string, body: Partial<T>): Observable<ResponseApi<T>> {
+  patch<T>(path: string, body: Partial<T>): Observable<ResponseApi<T>> {
     return this.httpClient.patch<ResponseApi<T>>(this.apiUrl + path, body);
   }
-  delete(path: string): Observable<ResponseApi<T>> {
+  delete<T>(path: string): Observable<ResponseApi<T>> {
     return this.httpClient.delete<ResponseApi<T>>(this.apiUrl + path);
   }
 }
