@@ -7,10 +7,10 @@ export class AuthApi {
   constructor(private apiService: ApiService<Partial<Auth>>) {}
 
   signIn(email: string, password: string) {
-    return this.apiService.post({ email, password });
+    return this.apiService.post('auth/login', { email, password });
   }
 
   signUp(email: string, password: string) {
-    return this.apiService.post({ email, password });
+    return this.apiService.post('auth/register', { email, password });
   }
 }

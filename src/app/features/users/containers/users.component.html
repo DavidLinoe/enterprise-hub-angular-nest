@@ -5,24 +5,19 @@
     {
       label: 'Create',
       icon: '+',
-      callback: (item) => createUser(),
+      callback: (item) => openCreateUser(),
     },
   ]"
 ></component-totalizer>
 
 <component-table
   [items]="usersFacade.users$ | async"
-  [columns]="[
-    { name: 'id', label: 'ID' },
-    { name: 'name', label: 'Name' },
-    { name: 'email', label: 'Email' },
-    { name: 'actions', label: 'Actions' },
-  ]"
+  [columns]="columns"
   [actions]="[
     {
       label: 'Edit',
       icon: 'edit',
-      callback: (item) => updateUser(item),
+      callback: (item) => openEditUser(item),
     },
     {
       label: 'Delete',
@@ -36,13 +31,13 @@
   [open]="open"
   [buttons]="[
     {
-      label: 'Create',
+      label: userFormGroup.get('id')?.value ? 'Update' : 'Create',
       disabled: false,
-      callback: (item) => createUser(),
+      callback: (item) => submitUser(),
     },
   ]"
   (close)="open = false"
-  [title]="'Test Modal'"
+  [title]="userFormGroup.get('id')?.value ? 'Edit User' : 'Create User'"
 >
   <feature-users-component-user-modal [form]="userFormGroup"></feature-users-component-user-modal>
 </component-modal>

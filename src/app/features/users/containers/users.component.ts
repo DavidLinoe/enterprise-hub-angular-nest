@@ -8,6 +8,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { UserModalComponent } from '../components/user-modal/user-modal.component';
 import { UsersFacade } from '../facades/users.facade';
 import { UsersApi } from '../apis/users.api';
+import { User, USERS_COLUMNS } from '../models/users.model';
 
 @Component({
   imports: [CommonModule, TableComponent, TotalizerComponent, ModalComponent, UserModalComponent],
@@ -18,6 +19,7 @@ import { UsersApi } from '../apis/users.api';
 export class UsersComponent implements OnInit {
   public open: boolean = false;
   public userFormGroup!: FormGroup;
+  public columns = USERS_COLUMNS;
 
   constructor(
     public router: Router,
@@ -27,7 +29,7 @@ export class UsersComponent implements OnInit {
 
   ngOnInit(): void {
     this.userFormGroup = this.formBuilder.group({
-      id: [''],
+      id: [null],
       name: [''],
       email: [''],
       role: [''],
@@ -35,18 +37,27 @@ export class UsersComponent implements OnInit {
     this.usersFacade.getAllUsers();
   }
 
-  async createUser() {
+  openCreateUser(): void {
+    this.userFormGroup.reset({ id: null, name: '', email: '', role: '' });
     this.open = true;
-    console.log(`User created`);
   }
 
-  async updateUser(user: string) {
+  openEditUser(user: User): void {
+    this.userFormGroup.patchValue(user);
     this.open = true;
-
-    console.log(`User updated`, user);
   }
 
-  async deleteUser(user: string) {
-    console.log(`User deleted`, user);
+  submitUser(): void {
+    const { id, ...payload } = this.userFormGroup.value;
+    if (id) {
+      this.usersFacade.updateUser(id, payload);
+    } else {
+      this.usersFacade.createUser(payload);
+    }
+    this.open = false;
+  }
+
+  deleteUser(user: User): void {
+    this.usersFacade.deleteUser(user.id);
   }
 }

@@ -12,16 +12,16 @@ export class ApiService<T> {
   get(path: string): Observable<ResponseApi<T>> {
     return this.httpClient.get<ResponseApi<T>>(this.apiUrl + path);
   }
-  post(body: Partial<T>): Observable<ResponseApi<T>> {
-    return this.httpClient.post<ResponseApi<T>>(this.apiUrl, body);
+  post(path: string, body: Partial<T>): Observable<ResponseApi<T>> {
+    return this.httpClient.post<ResponseApi<T>>(this.apiUrl + path, body);
   }
-  put(body: Partial<T>): Observable<ResponseApi<T>> {
-    return this.httpClient.put<ResponseApi<T>>(this.apiUrl, body);
+  put(path: string, body: Partial<T>): Observable<ResponseApi<T>> {
+    return this.httpClient.put<ResponseApi<T>>(this.apiUrl + path, body);
   }
-  patch(body: Partial<T>): Observable<ResponseApi<T>> {
-    return this.httpClient.patch<ResponseApi<T>>(this.apiUrl, body);
+  patch(path: string, body: Partial<T>): Observable<ResponseApi<T>> {
+    return this.httpClient.patch<ResponseApi<T>>(this.apiUrl + path, body);
   }
-  delete(param: string): Observable<ResponseApi<T>> {
-    return this.httpClient.delete<ResponseApi<T>>(this.apiUrl, { params: { id: param } });
+  delete(path: string): Observable<ResponseApi<T>> {
+    return this.httpClient.delete<ResponseApi<T>>(this.apiUrl + path);
   }
 }
