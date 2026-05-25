@@ -15,10 +15,10 @@ export class UsersApi {
   }
 
   updateUser(id: number, user: Partial<User>) {
-    return this.apiService.put(`users`, user);
+    return this.apiService.put(`users`, {id,...user});
   }
 
   deleteUser(id: number) {
-    return this.apiService.delete(`users/${id}`);
+    return this.apiService.delete(`users?userId=${id}`);
   }
 }
