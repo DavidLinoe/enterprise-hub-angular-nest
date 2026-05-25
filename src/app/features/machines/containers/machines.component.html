@@ -1,5 +1,5 @@
 <component-totalizer
-  [count]="(machinesFacade.machines$ | async)?.length ?? 0"
+  [count]="(machinesFacade.count$ | async) ?? 0"
   [title]="'Machines'"
   [actions]="[
     {

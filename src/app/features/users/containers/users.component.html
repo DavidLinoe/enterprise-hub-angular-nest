@@ -1,5 +1,5 @@
 <component-totalizer
-  [count]="10"
+  [count]="(usersFacade.count$ | async) ?? 0"
   [title]="'Users'"
   [actions]="[
     {

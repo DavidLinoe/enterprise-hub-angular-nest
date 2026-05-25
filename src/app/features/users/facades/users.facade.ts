@@ -6,6 +6,7 @@ import { User } from '../models/users.model';
 @Injectable()
 export class UsersFacade {
   public users$: BehaviorSubject<User[]> = new BehaviorSubject<User[]>([]);
+  public count$: BehaviorSubject<number> = new BehaviorSubject<number>(0);
 
   constructor(private usersApi: UsersApi) {}
 
@@ -13,6 +14,7 @@ export class UsersFacade {
     this.usersApi.getAllUsers().subscribe((response) => {
       if (response.data) {
         this.users$.next(response.data);
+        this.count$.next(response.count || response.data.length);
       }
     });
   }

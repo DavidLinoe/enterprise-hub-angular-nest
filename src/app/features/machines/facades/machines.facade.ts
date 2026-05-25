@@ -6,6 +6,7 @@ import { Machine } from '../models/machines.model';
 @Injectable()
 export class MachinesFacade {
   public machines$: BehaviorSubject<Machine[]> = new BehaviorSubject<Machine[]>([]);
+  public count$: BehaviorSubject<number> = new BehaviorSubject<number>(0);
 
   constructor(private machinesApi: MachinesApi) {}
 
@@ -13,6 +14,7 @@ export class MachinesFacade {
     this.machinesApi.getAllMachines().subscribe((response) => {
       if (response.data) {
         this.machines$.next(response.data);
+        this.count$.next(response.count || response.data.length);
       }
     });
   }
