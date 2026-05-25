@@ -1,16 +1,16 @@
 import { Injectable } from '@angular/core';
 import { ApiService } from '../../../services/api.service';
-import { Auth } from '../models/auth.model';
+import { AuthUser, SignUpPayload } from '../models/auth.model';
 
 @Injectable()
 export class AuthApi {
-  constructor(private apiService: ApiService<Partial<Auth>>) {}
+  constructor(private apiService: ApiService<AuthUser>) {}
 
   signIn(email: string, password: string) {
-    return this.apiService.post('auth/login', { email, password });
+    return this.apiService.post('auth/login', { email, password } as Partial<AuthUser>);
   }
 
-  signUp(email: string, password: string) {
-    return this.apiService.post('auth/register', { email, password });
+  signUp(payload: SignUpPayload) {
+    return this.apiService.post('auth/register', payload as Partial<AuthUser>);
   }
 }

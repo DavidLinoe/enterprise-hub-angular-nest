@@ -1,15 +1,43 @@
-import { inject, Injectable } from '@angular/core';
-import { Store } from '@ngrx/store';
-import { error, items, loading } from '../stores/auth.selectors';
+import { Injectable } from '@angular/core';
+import { BehaviorSubject, Observable, tap } from 'rxjs';
+import { AuthApi } from '../apis/auth.api';
+import { AuthUser, SignUpPayload } from '../models/auth.model';
+import { TokenService } from '../../../services/token.service';
+import { ResponseApi } from '../../../utils/types/apiResponse';
 
 @Injectable()
 export class AuthFacade {
-  private authStore = inject(Store);
-  public todos$ = this.authStore.selectSignal(items);
-  public loading$ = this.authStore.selectSignal(loading);
-  public error$ = this.authStore.selectSignal(error);
+  public user$: BehaviorSubject<AuthUser | null> = new BehaviorSubject<AuthUser | null>(null);
 
-  signIn(email: string, password: string): void {}
+  constructor(
+    private authApi: AuthApi,
+    private tokenService: TokenService,
+  ) {}
 
-  signUp(email: string, password: string): void {}
+  signIn(email: string, password: string): Observable<ResponseApi<AuthUser>> {
+    return this.authApi.signIn(email, password).pipe(
+      tap((response) => {
+        if (response.data?.token) {
+          this.tokenService.setToken(response.data.token);
+          this.user$.next(response.data);
+        }
+      }),
+    );
+  }
+
+  signUp(payload: SignUpPayload): Observable<ResponseApi<AuthUser>> {
+    return this.authApi.signUp(payload).pipe(
+      tap((response) => {
+        if (response.data?.token) {
+          this.tokenService.setToken(response.data.token);
+          this.user$.next(response.data);
+        }
+      }),
+    );
+  }
+
+  signOut(): void {
+    this.tokenService.removeToken();
+    this.user$.next(null);
+  }
 }
