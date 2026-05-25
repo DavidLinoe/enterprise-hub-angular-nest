@@ -6,8 +6,8 @@ import { User } from '../models/users.model';
 export class UsersApi {
   constructor(private apiService: ApiService) {}
 
-  getAllUsers() {
-    return this.apiService.get<User[]>('users/all');
+  getAllUsers(companyId: string) {
+    return this.apiService.get<User[]>(`users?companyId=${companyId}`);
   }
 
   createUser(user: Partial<User>) {
